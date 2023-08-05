@@ -9,7 +9,7 @@ def main():
     session.commit()
 
     for product in session.query(Product).all():
-        print(product)
+        print(product)  
 
 
 if __name__ == '__main__':
