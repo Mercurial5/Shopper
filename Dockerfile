@@ -1,18 +1,12 @@
 FROM python:3.10-slim
 
 COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install -r requirements.txt
+COPY . /app
+WORKDIR /app
 
-COPY alembic/ app/alembic/
-COPY alembic.ini app/
+RUN chmod +x /app/bin/*
+ENV PATH "$PATH:/app/bin"
 
-WORKDIR app
-
-CMD ["alembic", "upgrade", "head"]
-
-COPY src/ src/
-
-WORKDIR src
-
-CMD ["python", "main.py"]
+CMD start
